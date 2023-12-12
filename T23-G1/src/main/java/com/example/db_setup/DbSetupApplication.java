@@ -7,6 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DbSetupApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DbSetupApplication.class, args);
+       SpringApplication.run(DbSetupApplication.class, args);
     }
 }
