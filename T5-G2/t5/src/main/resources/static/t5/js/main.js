@@ -54,10 +54,17 @@ function Handlebuttonclass(id, button) {
   });
 }
 
-function Handlebuttonrobot(id, button) {
+function Handlebuttonrobot(id, button, rob, size) { //modificato
   $(document).ready(function () {
-    robot = "randoop";
-    difficulty = id;
+    robot = rob;
+    if(robot == "evosuite"){ // aggiunto
+      difficulty = parseInt(id)-parseInt(size)/2; // devo prendere l'id attuale meno la metà della grandezza totale del vettore di robot
+      difficulty = difficulty.toString();
+    }
+    else{ // aggiunto
+      difficulty = id;
+    }
+    //difficulty = id;
     console.log('Hai cliccato sul bottone del robot con id: ' + robot);
 
     // Se il bottone precedentemente selezionato è diverso da null
@@ -83,7 +90,7 @@ function redirectToPagereport() {
   if (classe && robot && difficulty) {
 
     // $.ajax({
-    //   url: 'http://localhost:8082/sendVariable', // L'URL del tuo endpoint sul server
+    //   url: ' :8082/sendVariable', // L'URL del tuo endpoint sul server
     //   type: 'POST', // Metodo HTTP da utilizzare
     //   data: {
     //     myVariable: classe,
@@ -127,7 +134,7 @@ function redirectToPagemain() {
 //   alert("Login effettuato con successo");
   
 //   $.ajax({
-//     url:'http://localhost:8082/login-variabiles',
+//     url:' :8082/login-variabiles',
 //     type: 'POST',
 //     data: { 
 //       var1: user, 
@@ -146,7 +153,7 @@ function redirectToPagemain() {
 
 function redirectToPageeditor() {
   $.ajax({
-    url:'http://localhost/api/save-data',
+    url:' /api/save-data',
     data: {
       playerId: parseJwt(getCookie("jwt")).userId,
       classe: classe,
@@ -174,7 +181,7 @@ function redirectToPageeditor() {
 function downloadFile() {
   fileId = classe;
   if (fileId) {
-    const downloadUrl = 'http://localhost/api/downloadFile/' + fileId;
+    const downloadUrl = ' /api/downloadFile/' + fileId;
 
     fetch(downloadUrl, {
       method: 'GET',
@@ -203,7 +210,23 @@ function downloadFile() {
 }
 
 function redirectToLogin() {
-  window.location.href = "/login";
+  if(confirm("Sei sicuro di voler effettuare il logout?")){
+    fetch(' /logout', {
+        method: 'GET',
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Richiesta logout non andata a buon fine');
+        }
+        else{
+          console.log("stai per essere reindirizzato alla pagina di login");
+          window.location.href = "/login";
+        }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
 }
 
 function saveLoginData() {

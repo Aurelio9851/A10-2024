@@ -19,7 +19,7 @@ public class LoginTest {
 
     @BeforeClass
     public static void setDriver() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\pasqu\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\luix1\\Downloads\\chromedriver-win64\\chromedriver.exe");
     }
 
     @Before
@@ -35,14 +35,14 @@ public class LoginTest {
 
     @Test
     public void validCredentials(){
-        driver.get("http://localhost/login");	
-        driver.findElement(By.id("email")).sendKeys("pippobaudo@gmail.com");
-        driver.findElement(By.id("password")).sendKeys("Pippino0");
+        driver.get("/login");	
+        driver.findElement(By.id("email")).sendKeys("prova@gmail.com");
+        driver.findElement(By.id("password")).sendKeys("Prova123");
         driver.findElement(By.cssSelector("input[type=submit]")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, timeout);
 
-        String urlPaginaDiRedirezione = "http://localhost/main";
+        String urlPaginaDiRedirezione = "/main";
         try {
             wait.until(ExpectedConditions.urlToBe(urlPaginaDiRedirezione));
         } catch(TimeoutException e) {
@@ -53,9 +53,9 @@ public class LoginTest {
     }
 
     @Test
-    public void invalidCredentials(){
-        driver.get("http://localhost/login");	
-        driver.findElement(By.id("email")).sendKeys("pippobaudo@gmail.com");
+    public void invalidpassword(){
+        driver.get("/login");	
+        driver.findElement(By.id("email")).sendKeys("prova@gmail.com");
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.cssSelector("input[type=submit]")).click();
 
@@ -69,4 +69,23 @@ public class LoginTest {
 
         Assert.assertEquals("Test fallito! Il login è avvenuto correttamente.", driver.findElement(By.tagName("body")).getText(), "Incorrect password");
     }
+
+    @Test
+    public void invalidemail(){
+        driver.get("/login");	
+        driver.findElement(By.id("email")).sendKeys("sbaglio@gmail.com");
+        driver.findElement(By.id("password")).sendKeys("password");
+        driver.findElement(By.cssSelector("input[type=submit]")).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, timeout);
+
+        try {
+            wait.until(ExpectedConditions.textToBe(By.tagName("body"), "Email not found"));
+        } catch(TimeoutException e) {
+            Assert.fail();
+        }
+
+        Assert.assertEquals("Test fallito! Il login è avvenuto correttamente.", driver.findElement(By.tagName("body")).getText(), "Email not found");
+    }
+
 }
