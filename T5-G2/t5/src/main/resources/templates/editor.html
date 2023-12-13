@@ -458,6 +458,7 @@ public class TestClasse {
     <script>
       var turno = 0; // numero di turni giocati fino ad ora
       var perc_robot = '0'; // percentuale di copertura del robot scelto
+      var dominio=location.hostname; //indirizzo ip attuale
 
       const getCookie = (name) => {
         const value = `; ${document.cookie}`;
@@ -648,7 +649,7 @@ public class TestClasse {
           if(turno == 0){
             async function valRob() {             
               try {
-                let response = await fetch(':3000/robots?testClassId='+localStorage.getItem("classe")+'&type='+localStorage.getItem("robot")+'&difficulty='+localStorage.getItem("difficulty"), 
+                let response = await fetch('http://'+dominio+':3000/robots?testClassId='+localStorage.getItem("classe")+'&type='+localStorage.getItem("robot")+'&difficulty='+localStorage.getItem("difficulty"), 
                 { method: 'GET' });
                 if (!response.ok) {
                   throw new Error('Richiesta risultati robot non andata a buon fine');
@@ -677,7 +678,7 @@ public class TestClasse {
                 }
                 
                 try {
-                  let response = await fetch(':3000/turns/'+val.toString(), { method: 'GET' });
+                  let response = await fetch('http://'+dominio+':3000/turns/'+val.toString(), { method: 'GET' });
                   if (!response.ok) {
                     throw new Error('Richiesta risultati turno non andata a buon fine');
                   }
@@ -692,7 +693,7 @@ public class TestClasse {
                 }
 
                 try{
-                  let response = await fetch(' '+':3080/tests/'+val.toString() + '/Test' + localStorage.getItem("classe"), { method: 'GET' });
+                  let response = await fetch('http://'+dominio+':3080/tests/'+val.toString() + '/Test' + localStorage.getItem("classe"), { method: 'GET' });
                   if (!response.ok) {
                     throw new Error('Richiesta risultati turno non andata a buon fine');
                   }
@@ -751,7 +752,7 @@ public class TestClasse {
       runButton.addEventListener("click", function() {
         //   $(document).ready(function() {
         //   $.ajax({
-        //     url: ":80/getResultXml",
+        //     url: "http://localhost:80/getResultXml",
         //     type: "GET",
         //     dataType: "text",
         //     success: function(xmlContent) {
@@ -859,7 +860,7 @@ public class TestClasse {
             var test = '/VolumeT8/FolderTreeEvo/Tests/' + localStorage.getItem("turnId");
 
             // Definisci il percorso dell'API
-            var apiBaseUrl = ' '+':3080/api/';
+            var apiBaseUrl = 'http://'+dominio+':3080/api/';
 
             // Concatena il percorso della classe al percorso dell'API
             var url = apiBaseUrl + classe + '+' + test + '+/app';
@@ -985,7 +986,7 @@ Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
           formData.append("file",new Blob([playerTestClass],{type:"text/plain"}),fileName);
           // Effettua la richiesta AJAX per inviare i dati e il file XML
           $.ajax({
-            url: ":80/inviaDatiEFile",
+            url: "http://localhost:80/inviaDatiEFile",
             type: "POST",
             data: formData,
             processData: false,
@@ -1037,7 +1038,7 @@ Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
           var test = '/VolumeT8/FolderTreeEvo/Tests/' + localStorage.getItem("turnId");
 
           // Definisci il percorso dell'API
-          var apiBaseUrl = ' '+':3080/api/';
+          var apiBaseUrl = 'http://'+dominio+':3080/api/';
 
           // Concatena il percorso della classe al percorso dell'API
           var url = apiBaseUrl + classe + '+' + test + '+/app';

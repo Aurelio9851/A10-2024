@@ -860,7 +860,7 @@ public class TestClasse {
             var test = '/VolumeT8/FolderTreeEvo/Tests/' + localStorage.getItem("turnId");
 
             // Definisci il percorso dell'API
-            var apiBaseUrl = 'http://localhost:3080/api/';
+            var apiBaseUrl = 'http://'+dominio+':3080/api/';
 
             // Concatena il percorso della classe al percorso dell'API
             var url = apiBaseUrl + classe + '+' + test + '+/app';
