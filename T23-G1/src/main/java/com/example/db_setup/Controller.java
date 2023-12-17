@@ -333,6 +333,11 @@ public class Controller {
     //     return ID;
     // }
 
+
+    @GetMapping("/students_list")
+    public List<User> getAllStudents() {
+        return userRepository.findAll();
+    }
     /* GET PER LE VIEW */
 
     public boolean isJwtValid(String jwt) {

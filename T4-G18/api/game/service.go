@@ -78,7 +78,8 @@ func (gs *Repository) FindByInterval(accountId string, i api.IntervalParams, p a
 
 		})
 	} else {
-		err = gs.db.Scopes(api.WithInterval(i, "games.created_at"),
+		//aggiunto preload qui
+		err = gs.db.Preload("Players").Scopes(api.WithInterval(i, "games.created_at"),
 			api.WithPagination(p)).
 			Find(&games).
 			Count(&n).

@@ -83,6 +83,16 @@ public class HomeController {
 		return "registraAdmin";
 	}
 
+	@GetMapping("/player")
+	public String showplayer() {
+		return "player";
+	}
+
+	@GetMapping("class")
+	public String showclass() {
+		return "class";
+	}
+
 	@GetMapping("/modificaClasse")
 	public String showModificaClasse() {
 		return "modificaClasse";

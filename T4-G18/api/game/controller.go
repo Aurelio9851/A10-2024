@@ -22,6 +22,7 @@ func NewController(gs Service) *Controller {
 	return &Controller{service: gs}
 }
 
+
 func (gc *Controller) Create(w http.ResponseWriter, r *http.Request) error {
 
 	request, err := api.FromJsonBody[CreateRequest](r.Body)
@@ -103,13 +104,13 @@ func (gc *Controller) List(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	pageSize, err := api.FromUrlQuery[KeyType](r, "pageSize", 10)
+	pageSize, err := api.FromUrlQuery[KeyType](r, "pageSize", 1000) //numero risulati ritornati
 
 	if err != nil {
 		return err
 	}
 
-	startDate, err := api.FromUrlQuery(r, "startDate", IntervalType(time.Now().Add(-24*time.Hour)))
+	startDate, err := api.FromUrlQuery(r, "startDate", IntervalType(time.Now().Add(-8760*time.Hour)))
 
 	if err != nil {
 		return err
