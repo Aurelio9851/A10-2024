@@ -22,7 +22,6 @@ func NewController(gs Service) *Controller {
 	return &Controller{service: gs}
 }
 
-
 func (gc *Controller) Create(w http.ResponseWriter, r *http.Request) error {
 
 	request, err := api.FromJsonBody[CreateRequest](r.Body)

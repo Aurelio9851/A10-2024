@@ -35,14 +35,14 @@ public class LoginTest {
 
     @Test
     public void validCredentials(){
-        driver.get("/login");	
+        driver.get("http://localhost/login");	
         driver.findElement(By.id("email")).sendKeys("prova@gmail.com");
         driver.findElement(By.id("password")).sendKeys("Prova123");
         driver.findElement(By.cssSelector("input[type=submit]")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, timeout);
 
-        String urlPaginaDiRedirezione = "/main";
+        String urlPaginaDiRedirezione = "http://localhost/main";
         try {
             wait.until(ExpectedConditions.urlToBe(urlPaginaDiRedirezione));
         } catch(TimeoutException e) {
@@ -54,7 +54,7 @@ public class LoginTest {
 
     @Test
     public void invalidpassword(){
-        driver.get("/login");	
+        driver.get("http://localhost/login");	
         driver.findElement(By.id("email")).sendKeys("prova@gmail.com");
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.cssSelector("input[type=submit]")).click();
@@ -72,7 +72,7 @@ public class LoginTest {
 
     @Test
     public void invalidemail(){
-        driver.get("/login");	
+        driver.get("http://localhost/login");	
         driver.findElement(By.id("email")).sendKeys("sbaglio@gmail.com");
         driver.findElement(By.id("password")).sendKeys("password");
         driver.findElement(By.cssSelector("input[type=submit]")).click();

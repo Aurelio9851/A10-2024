@@ -328,29 +328,28 @@
           width: 100%;
         }
       }
-
       /*caricamento*/
-      #loadingOverlay {
-        display: none;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.8);
-        z-index:2;
-    }
-    
-    #loadingModal {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
+      .loadingOverlay {
+          display: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.8);
+          z-index:2;
+      }
+      
+      .loadingModal {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: #fff;
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
     </style>
 </head>
 
@@ -364,12 +363,12 @@
     </div>
     <div class="container">
       <div class="container2">
-          <!-- Schermata di caricamento -->
-          <div id="loadingOverlay">
-            <div id="loadingModal">
-              <p>Caricamento in corso...</p>
-            </div>
+        <!-- Schermata di caricamento -->
+        <div id="loading-editor" class="loadingOverlay">
+          <div class="loadingModal">
+            <p>Caricamento in corso...</p>
           </div>
+        </div>
         <div class="top-bar">
           <button class="user-button" title="Game Info" onclick="openInfoModal()"></button>
           <div id="infoModal" class="modal2">
@@ -411,7 +410,6 @@
           <button id="coverageButton" class="coverage-button" title="Run"></button> <!-- modificato chiamato il pulsante Run, prima era Run with Jacoco -->
           <button id="logout" class="logout-button" title="Logout"></button> <!--aggiunto-->
         </div>
-        
         <textarea id="editor" name="editor">
 import org.junit.Before;
 import org.junit.After;
@@ -476,6 +474,12 @@ public class TestClasse {
       </div>
       
       <div class="container2">
+        <!-- Schermata di caricamento -->
+        <div id="loading-result" class="loadingOverlay">
+          <div class="loadingModal">
+            <p>Caricamento in corso...</p>
+          </div>
+        </div>
         <div class="top-bar2">
           Confronto risultati
         </div>
@@ -489,7 +493,7 @@ public class TestClasse {
     <script>
       var turno = 0; // numero di turni giocati fino ad ora
       var perc_robot = '0'; // percentuale di copertura del robot scelto
-      var dominio=location.hostname; //indirizzo ip attuale
+      var dominio=location.hostname;
 
       const getCookie = (name) => {
         const value = `; ${document.cookie}`;
@@ -677,11 +681,11 @@ public class TestClasse {
         //funzione handler del tasto di storico
         var storico = document.getElementById("storico");
         storico.addEventListener("click", function(){
-        document.getElementById('loadingOverlay').style.display = 'block';
+        document.getElementById('loading-editor').style.display = 'block';
           if(turno == 0){
             async function valRob() {             
               try {
-                let response = await fetch('http://'+dominio+':3000/robots?testClassId='+localStorage.getItem("classe")+'&type='+localStorage.getItem("robot")+'&difficulty='+localStorage.getItem("difficulty"), 
+                let response = await fetch("http://"+dominio+':3000/robots?testClassId='+localStorage.getItem("classe")+'&type='+localStorage.getItem("robot")+'&difficulty='+localStorage.getItem("difficulty"), 
                 { method: 'GET' });
                 if (!response.ok) {
                   throw new Error('Richiesta risultati robot non andata a buon fine');
@@ -691,14 +695,14 @@ public class TestClasse {
               } catch (error) {
                 console.error('Error:', error);
               }
-              document.getElementById('loadingOverlay').style.display = 'none';
+              document.getElementById('loading-editor').style.display = 'none';
               alert("Non esiste ancora uno storico dei test\nPercentuale di copertura da battere: "+perc_robot);
             }
 
             valRob();
           }
           else{
-            document.getElementById('loadingOverlay').style.display = 'none';
+            document.getElementById('loading-editor').style.display = 'none';
             var dastampare = "Percentuale di copertura da battere: " + perc_robot + "\n";
             var testi = "\n";
 
@@ -712,7 +716,7 @@ public class TestClasse {
                 }
                 
                 try {
-                  let response = await fetch('http://'+dominio+':3000/turns/'+val.toString(), { method: 'GET' });
+                  let response = await fetch("http://"+dominio+':3000/turns/'+val.toString(), { method: 'GET' });
                   if (!response.ok) {
                     throw new Error('Richiesta risultati turno non andata a buon fine');
                   }
@@ -727,7 +731,7 @@ public class TestClasse {
                 }
 
                 try{
-                  let response = await fetch('http://'+dominio+':3080/tests/'+val.toString() + '/Test' + localStorage.getItem("classe"), { method: 'GET' });
+                  let response = await fetch("http://"+dominio+':3080/tests/'+val.toString() + '/Test' + localStorage.getItem("classe"), { method: 'GET' });
                   if (!response.ok) {
                     throw new Error('Richiesta risultati turno non andata a buon fine');
                   }
@@ -741,6 +745,7 @@ public class TestClasse {
               consoleArea.setValue(dastampare+testi);
               console.log(dastampare);
             }
+
             fetchTurns(turno);
           }
         });
@@ -760,7 +765,7 @@ public class TestClasse {
 
         // Esegui la chiamata AJAX al tuo controller Spring
         // Utilizza la libreria jQuery per semplificare la gestione delle richieste AJAX
-        document.getElementById('loadingOverlay').style.display = 'block';
+        document.getElementById('loading-editor').style.display = 'block';
         $.ajax({
           url: "/api/sendInfo", //URL del controller Spring
           type: "POST",
@@ -769,14 +774,14 @@ public class TestClasse {
           contentType: false,
           dataType: "text",
           success: function(response) {
-            document.getElementById('loadingOverlay').style.display = 'none';
+            document.getElementById('loading-editor').style.display = 'none';
             // Logica da eseguire in caso di successo
             consoleArea.setValue(response);
             console.log("Richiesta inviata con successo. Risposta del server:", response);
           },
           error: function(xhr, status, error) {
             // Logica da eseguire in caso di errore
-            document.getElementById('loadingOverlay').style.display = 'none';
+            document.getElementById('loading-editor').style.display = 'none';
             alert("Si è verificato un errore!");
             console.log("Errore durante l'invio della richiesta:", error);
           }
@@ -804,9 +809,10 @@ public class TestClasse {
         //     }
         //   });
         // });
-        document.getElementById('loadingOverlay').style.display = 'block';
+        document.getElementById('loading-editor').style.display = 'block';
         $(document).ready(function() {
           if(localStorage.getItem("gameId") == "null") { //controllo game invece che turn
+            document.getElementById('loading-editor').style.display = 'none';
             alert("Impossibile effettuare un nuovo tentativo: Hai già vinto!");
           } else {
             var risp; // variabile per salvare response
@@ -841,7 +847,7 @@ public class TestClasse {
                 /*consoleArea2.setValue(`Esito Risultati (percentuale di linee coperte)
   Il tuo punteggio: ${response.score.toString()}% LOC
   Il punteggio del robot: ${response.robotScore.toString()}% LOC`);*/
-                document.getElementById('loadingOverlay').style.display = 'none';
+                document.getElementById('loading-editor').style.display = 'none';
                 alert(response.win == true ? "Hai vinto!" : "Hai perso!");
                 //localStorage.clear();
                 if(response.win == true){
@@ -876,7 +882,7 @@ public class TestClasse {
                     },
                     dataType: "json",
                     error: function (error) {
-                      document.getElementById('loadingOverlay').style.display = 'none';
+                      document.getElementById('loading-editor').style.display = 'none';
                       console.error('Errore nell invio dei dati');
                       alert("Dati non inviati con successo");
                       // Gestisci l'errore qui
@@ -887,7 +893,7 @@ public class TestClasse {
               },
               error: function() {
                 // Gestisci l'errore, ad esempio mostra un messaggio di errore
-                document.getElementById('loadingOverlay').style.display = 'none';
+                document.getElementById('loading-editor').style.display = 'none';
                 console.log("Errore durante l'invio della partita.");
               }
             });
@@ -899,13 +905,13 @@ public class TestClasse {
             var test = '/VolumeT8/FolderTreeEvo/Tests/' + localStorage.getItem("turnId");
 
             // Definisci il percorso dell'API
-            var apiBaseUrl = 'http://'+dominio+':3080/api/';
+            var apiBaseUrl = "http://"+dominio + ':3080/api/';
 
             // Concatena il percorso della classe al percorso dell'API
             var url = apiBaseUrl + classe + '+' + test + '+/app';
 
             const javaCode = editor.getValue(); // codice della classe di test
-
+            document.getElementById('loading-result').style.display = 'block';
             fetch(url, { 
                   method: 'POST', 
                   headers: { 'Content-Type': 'text/plain' },
@@ -951,7 +957,7 @@ public class TestClasse {
                       var terzoElemento5 = parseInt(settimoRowElements[2]*100);
                       var terzoElemento6 = parseInt(ottavoRowElements[2]*100);
                       var terzoElemento7 = parseInt(nonoRowElements[2]*100);
-
+                      document.getElementById('loading-result').style.display = 'none';
                       console.log('Terzo elemento della seconda riga:', terzoElemento);
                       consoleArea2.setValue(`Esito Risultati (percentuale di linee coperte)
 Il tuo punteggio EvoSuite: ${terzoElemento}% LOC
@@ -969,11 +975,11 @@ Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
                   }
 
                 };
-                document.getElementById('loadingOverlay').style.display = 'none';
+                document.getElementById('loading-editor').style.display = 'none';
                 reader.readAsText(blob);
               })
               .catch(function (error) {
-                document.getElementById('loadingOverlay').style.display = 'none';
+                document.getElementById('loading-editor').style.display = 'none';
                 console.log('Si è verificato un errore:', error);
               });
 
@@ -1053,7 +1059,7 @@ Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
           formData.append("testingClassCode", editor.getValue());
           formData.append("underTestClassName", localStorage.getItem("classe")+".java");
           formData.append("underTestClassCode", sidebarEditor.getValue());
-          document.getElementById('loadingOverlay').style.display = 'block';
+          document.getElementById('loading-editor').style.display = 'block';
           $.ajax({
             url: "/api/getJaCoCoReport",
             type: "POST",
@@ -1062,13 +1068,13 @@ Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
             contentType: false,
             dataType: "xml", //potrebbe essere anche giusto leggere da un file xml di report di JaCoCo
             success: function(reportContent) {
-              document.getElementById('loadingOverlay').style.display = 'none';
+              document.getElementById('loading-editor').style.display = 'none';
               console.log(reportContent);
               // Una volta ricevuto il file di output di JaCoCo, elabora il contenuto
               highlightCodeCoverage(reportContent);
             },
             error: function() {
-              document.getElementById('loadingOverlay').style.display = 'none';
+              document.getElementById('loading-editor').style.display = 'none';
               alert("Si è verificato un errore. Assicurati prima che la compilazione vada a buon fine!");
               console.log("Errore durante il recupero del file di output di JaCoCo.");
             }
@@ -1080,7 +1086,7 @@ Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
           var test = '/VolumeT8/FolderTreeEvo/Tests/' + localStorage.getItem("turnId");
 
           // Definisci il percorso dell'API
-          var apiBaseUrl = 'http://'+dominio+':3080/api/';
+          var apiBaseUrl = "http://"+dominio + ':3080/api/';
 
           // Concatena il percorso della classe al percorso dell'API
           var url = apiBaseUrl + classe + '+' + test + '+/app';

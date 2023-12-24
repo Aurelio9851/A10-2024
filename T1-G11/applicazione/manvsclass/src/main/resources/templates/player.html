@@ -175,7 +175,7 @@ a:hover {
     const studentsPromise = fetch('/students_list').then(response => response.json());
 
     // Effettua una richiesta FETCH per ottenere i dati aggiuntivi
-    const gameDataPromise = fetch("http://"+dominio+':3000/games').then(response => response.json());
+    const gameDataPromise = fetch('http://'+dominio+':3000/games').then(response => response.json());
 
     // Attendi che entrambe le richieste siano completate
     Promise.all([studentsPromise, gameDataPromise])
@@ -206,7 +206,7 @@ a:hover {
                 const timeDifference = calculateTimeDifference(entry.startedAt, entry.closedAt);
 
                 entry.players.forEach(player => {
-                    const accountId = player.id;  // Modifica la chiave in base alla tua struttura JSON
+                    const accountId = player.accountId;  
 
                     // Aggiorniamo il conteggio e il tempo totale per ogni 'accountId'
                     if (!accountStats[accountId]) {

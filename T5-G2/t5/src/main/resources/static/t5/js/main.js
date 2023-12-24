@@ -90,7 +90,7 @@ function redirectToPagereport() {
   if (classe && robot && difficulty) {
 
     // $.ajax({
-    //   url: ' :8082/sendVariable', // L'URL del tuo endpoint sul server
+    //   url: 'http://localhost:8082/sendVariable', // L'URL del tuo endpoint sul server
     //   type: 'POST', // Metodo HTTP da utilizzare
     //   data: {
     //     myVariable: classe,
@@ -134,7 +134,7 @@ function redirectToPagemain() {
 //   alert("Login effettuato con successo");
   
 //   $.ajax({
-//     url:' :8082/login-variabiles',
+//     url:'http://localhost:8082/login-variabiles',
 //     type: 'POST',
 //     data: { 
 //       var1: user, 
@@ -153,7 +153,7 @@ function redirectToPagemain() {
 
 function redirectToPageeditor() {
   $.ajax({
-    url:' /api/save-data',
+    url:'/api/save-data',
     data: {
       playerId: parseJwt(getCookie("jwt")).userId,
       classe: classe,
@@ -181,7 +181,7 @@ function redirectToPageeditor() {
 function downloadFile() {
   fileId = classe;
   if (fileId) {
-    const downloadUrl = ' /api/downloadFile/' + fileId;
+    const downloadUrl = '/api/downloadFile/' + fileId;
 
     fetch(downloadUrl, {
       method: 'GET',
@@ -211,7 +211,7 @@ function downloadFile() {
 
 function redirectToLogin() {
   if(confirm("Sei sicuro di voler effettuare il logout?")){
-    fetch(' /logout', {
+    fetch('/logout', {
         method: 'GET',
     })
     .then(response => {

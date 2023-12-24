@@ -83,16 +83,6 @@ public class HomeController {
 		return "registraAdmin";
 	}
 
-	@GetMapping("/player")
-	public String showplayer() {
-		return "player";
-	}
-
-	@GetMapping("class")
-	public String showclass() {
-		return "class";
-	}
-
 	@GetMapping("/modificaClasse")
 	public String showModificaClasse() {
 		return "modificaClasse";
@@ -215,6 +205,15 @@ public class HomeController {
 	   return mongoTemplate.findAndRemove(query, interaction.class);
 	}
 	
+	@GetMapping("/player")
+	public String showplayer() {
+		return "player";
+	}
+
+	@GetMapping("class")
+	public String showclass() {
+		return "class";
+	}
 	
 	@GetMapping("/home")
 	@ResponseBody

@@ -3,6 +3,7 @@
 var lint = require("./lint");
 
 var files = new (require('node-static').Server)();
+var dominio=location.hostanme;
 
 var server = require('http').createServer(function (req, res) {
   req.addListener('end', function () {
@@ -25,7 +26,7 @@ var server = require('http').createServer(function (req, res) {
     await dialog.dismiss()
   })
   page.evaluateOnNewDocument(() => window.automatedTests = true)
-  await page.goto('http://localhost:3000/test/index.html#' + (process.argv[2] || ""))
+  await page.goto("http://"+dominio+':3000/test/index.html#'  + (process.argv[2] || ""))
   while(1) {
     if (await page.evaluate(() => window.done)) break
     await sleep(200)

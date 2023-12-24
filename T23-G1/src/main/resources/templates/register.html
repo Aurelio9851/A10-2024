@@ -9,7 +9,7 @@
   <body>
     <div class="container">
     <h1>REGISTRAZIONE</h1>
-    <form th:action="@{/register}" method="post" onsubmit="validateForm()">
+    <form th:action="@{/register}" method="post" >
   
       <input type="text" id="name" name="name" required placeholder="Nome">
 
@@ -28,25 +28,26 @@
       </select>
       
       <div class= "g-recaptcha m-3 row justify-content-center" 
-      data-sitekey="6LcZN2QmAAAAACw4po2gr-Efo0k8ubA6cKB_CJxN"></div>
+      data-sitekey="6LcZN2QmAAAAACw4po2gr-Efo0k8ubA6cKB_CJxN" style="display:none"></div>
       
-      <input type="submit" value="Invia">
+      <input type="submit" value="Invia"> 
       
     </form>
 
     	<a class="register-signup-now" data-uia="register-signup-now" href="/login">
       Sei già registrato? Accedi.</a>
       
-      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+       <script src="https://www.google.com/recaptcha/api.js" async defer></script> 
       <script type="text/javascript">
         
         function validateForm(){
-          if(grecaptcha.getResponse()){
+          /*if(grecaptcha.getResponse()){
             return true;
           } else {
             alert("Please, prove that you're not a robot!")
             return false;
-          }
+          } */
+          return true;
         }
       </script>
     </div>

@@ -42,14 +42,14 @@ public class EditorTest {
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
 
-        driver.get("/login");	
+        driver.get("http://localhost/login");	
         driver.findElement(By.id("email")).sendKeys("prova@gmail.com");
         driver.findElement(By.id("password")).sendKeys("Prova123");
         driver.findElement(By.cssSelector("input[type=submit]")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, timeout);
 
-        String urlPaginaDiRedirezione = "/main";
+        String urlPaginaDiRedirezione = "http://localhost/main";
         try {
             wait.until(ExpectedConditions.urlToBe(urlPaginaDiRedirezione));
         } catch(TimeoutException e) {
@@ -91,7 +91,7 @@ public class EditorTest {
 
     @Test
     public void selection() {
-        String urlPaginaDiRedirezione = "/report";
+        String urlPaginaDiRedirezione = "http://localhost/report";
 
         moveToReport(urlPaginaDiRedirezione);
 
@@ -99,7 +99,7 @@ public class EditorTest {
     }
 
     public void moveToEditor(String urlPaginaDiRedirezione) {
-        moveToReport("/report");
+        moveToReport("http://localhost/report");
 
         driver.findElementsByCssSelector(".div_buttons > * button").get(1).click();
 
@@ -122,7 +122,7 @@ public class EditorTest {
         alert.accept(); // clicco su conferma per effettuare il logout
 
         try {
-            wait.until(ExpectedConditions.urlToBe("/login"));
+            wait.until(ExpectedConditions.urlToBe("http://localhost/login"));
         } catch(TimeoutException e) {
             Assert.fail();
         }
@@ -130,7 +130,7 @@ public class EditorTest {
 
     @Test
     public void startGame() {
-        String urlPaginaDiRedirezione = "/editor";
+        String urlPaginaDiRedirezione = "http://localhost/editor";
         moveToEditor(urlPaginaDiRedirezione);
 
         Assert.assertEquals("Test fallito! L'avvio della partita non è avvenuto correttamente.", driver.getCurrentUrl(), urlPaginaDiRedirezione);
@@ -138,7 +138,7 @@ public class EditorTest {
 
     @Test
     public void compile() {
-        String urlPaginaDiRedirezione = "/editor";
+        String urlPaginaDiRedirezione = "http://localhost/editor";
         moveToEditor(urlPaginaDiRedirezione);
 
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -209,7 +209,7 @@ public class EditorTest {
 
     @Test
     public void run() {
-        String urlPaginaDiRedirezione = "/editor";
+        String urlPaginaDiRedirezione = "http://localhost/editor";
         moveToEditor(urlPaginaDiRedirezione);
 
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -280,7 +280,7 @@ public class EditorTest {
 
     @Test
     public void submit() {
-        String urlPaginaDiRedirezione = "/editor";
+        String urlPaginaDiRedirezione = "http://localhost/editor";
         moveToEditor(urlPaginaDiRedirezione);
 
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -358,7 +358,7 @@ public class EditorTest {
     
     @Test
     public void storico() {
-        String urlPaginaDiRedirezione = "/editor";
+        String urlPaginaDiRedirezione = "http://localhost/editor";
         moveToEditor(urlPaginaDiRedirezione);
 
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -437,7 +437,7 @@ public class EditorTest {
 
     @Test
     public void logout_editor() {
-        String urlPaginaDiRedirezione = "/editor";
+        String urlPaginaDiRedirezione = "http://localhost/editor";
         moveToEditor(urlPaginaDiRedirezione);
 
         WebDriverWait wait = new WebDriverWait(driver, timeout);
@@ -454,7 +454,7 @@ public class EditorTest {
         alert.accept(); // clicco su conferma per effettuare il logout
 
         try {
-            wait.until(ExpectedConditions.urlToBe("/login"));
+            wait.until(ExpectedConditions.urlToBe("http://localhost/login"));
         } catch(TimeoutException e) {
             Assert.fail();
         }
