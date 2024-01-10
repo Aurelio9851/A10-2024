@@ -1,4 +1,4 @@
-# Task T10 # Requisiti R5 e R12 - Gruppo A10
+# Task T10 Requisiti R5 e R12 - Gruppo A10
 Componenti:
 - Vincenzo D'Angelo - M63/1595
 - Giorgio Di Costanzo - M63/1579
@@ -23,16 +23,16 @@ Tali script dovranno essere avviati unicamnete con Docker in esecuzione, altrime
 NOTA: il container relativo al Task 9 ("Progetto-SAD-G19-master") si sospenderà autonomamente dopo l'avvio. Esso viene utilizzato solo per "popolare" il volume "VolumeT9" condiviso con il Task 1.
 
 L'intera applicazione è adesso pienamente configurata e raggiungibile sulla porta :80. Per una guida all'installazione e all'utilizzo più completa consultare la documentazione al capitolo 8.
-## Passi opzionali per esporre l'applicazione su un indirizzo pubblico
-## NB: Ogni lettera rappresenta una soluzione diversa
+# Passi opzionali per esporre l'applicazione su un indirizzo pubblico
+# NB: Ogni lettera rappresenta una soluzione diversa
 
-## A: Installazione NGROK
+# A: Installazione NGROK
 ## PASSO A.1 
-## B: Esposizione localhost tramite Pinggy
+# B: Esposizione localhost tramite Pinggy
 ## PASSO B.1 
 Inserire il comando
 
-## C: Installazione Server Esterno 
+# C: Installazione Server Esterno 
 ## PASSO C.1 
 
 # VIDEO DIMOSTRAZIONE
