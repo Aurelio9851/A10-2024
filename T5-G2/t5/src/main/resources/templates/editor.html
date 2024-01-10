@@ -493,7 +493,6 @@ public class TestClasse {
     <script>
       var turno = 0; // numero di turni giocati fino ad ora
       var perc_robot = '0'; // percentuale di copertura del robot scelto
-      var dominio=location.hostname;
 
       const getCookie = (name) => {
         const value = `; ${document.cookie}`;
@@ -660,21 +659,17 @@ public class TestClasse {
         var logout = document.getElementById("logout");
         logout.addEventListener("click", function(){
           if(confirm("Sei sicuro di voler effettuare il logout?")){
-            fetch('/logout', {
-                method: 'GET',
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Richiesta logout non andata a buon fine');
-                }
-                else{
-                  console.log("stai per essere reindirizzato alla pagina di login");
-                  window.location.href = "/login";
-                }
-            })
-            .catch((error) => {
-              console.error('Error:', error);
+            $.ajax({
+              url: '/logout',
+              method: 'GET',
+              success: function (data, textStatus, xhr) {
+                window.location.href = "/login";
+              },
+              error: function (xhr, textStatus, error) {
+                console.error('Error:', textStatus, error);
+              }
             });
+            
           }
         });
 
@@ -683,21 +678,31 @@ public class TestClasse {
         storico.addEventListener("click", function(){
         document.getElementById('loading-editor').style.display = 'block';
           if(turno == 0){
-            async function valRob() {             
+            async function valRob() {
               try {
-                let response = await fetch("http://"+dominio+':3000/robots?testClassId='+localStorage.getItem("classe")+'&type='+localStorage.getItem("robot")+'&difficulty='+localStorage.getItem("difficulty"), 
-                { method: 'GET' });
-                if (!response.ok) {
-                  throw new Error('Richiesta risultati robot non andata a buon fine');
-                }
-                let data = await response.json();
+                let params = {
+                  testClassId: localStorage.getItem("classe"),
+                  type: localStorage.getItem("robot"),
+                  difficulty: localStorage.getItem("difficulty"),
+                };
+            
+                // Utilizzando $.ajax di jQuery:
+                let data = await $.ajax({
+                  url: "/robots",
+                  method: 'GET',
+                  data: params,
+                  dataType: 'json',
+                });
+            
                 perc_robot = data.scores;
               } catch (error) {
                 console.error('Error:', error);
               }
+            
               document.getElementById('loading-editor').style.display = 'none';
-              alert("Non esiste ancora uno storico dei test\nPercentuale di copertura da battere: "+perc_robot);
+              alert("Non esiste ancora uno storico dei test\nPercentuale di copertura da battere: " + perc_robot);
             }
+            
 
             valRob();
           }
@@ -707,44 +712,48 @@ public class TestClasse {
             var testi = "\n";
 
             async function fetchTurns(turno) {
-              for(var i=1; i<=turno; i++){
-                if(localStorage.getItem("gameId") == "null"){
-                  var val = parseInt(localStorage.getItem("turnId"))-turno+i;
+              for (var i = 1; i <= turno; i++) {
+                let val;
+                if (localStorage.getItem("gameId") === "null") {
+                  val = parseInt(localStorage.getItem("turnId")) - turno + i;
+                } else {
+                  val = parseInt(localStorage.getItem("turnId")) - turno + (i - 1);
                 }
-                else{
-                  var val = parseInt(localStorage.getItem("turnId"))-turno+(i-1);
-                }
-                
+            
                 try {
-                  let response = await fetch("http://"+dominio+':3000/turns/'+val.toString(), { method: 'GET' });
-                  if (!response.ok) {
-                    throw new Error('Richiesta risultati turno non andata a buon fine');
+                  let response = await $.ajax({
+                    url: "/turns/" + val.toString(),
+                    method: 'GET',
+                    dataType: 'json',
+                  });
+            
+                  if (response.isWinner) {
+                    dastampare += "Tentativo " + i.toString() + ": Vittoria\n" + "Percentuale di copertura ottenuta: " + response.scores + "\n";
+                  } else {
+                    dastampare += "Tentativo " + i.toString() + ": Sconfitta\n" + "Percentuale di copertura ottenuta: " + response.scores + "\n";
                   }
-                  let data = await response.json();
-                  if(data.isWinner)
-                    dastampare += "Tentativo " + i.toString() + ": Vittoria\n" + "Percentuale di copertura ottenuta: " + data.scores + "\n";
-                  else
-                    dastampare += "Tentativo " + i.toString() + ": Sconfitta\n" + "Percentuale di copertura ottenuta: " + data.scores + "\n";
-                  console.log(data.scores);
+                  console.log(response.scores);
                 } catch (error) {
                   console.error('Error:', error);
                 }
-
-                try{
-                  let response = await fetch("http://"+dominio+':3080/tests/'+val.toString() + '/Test' + localStorage.getItem("classe"), { method: 'GET' });
-                  if (!response.ok) {
-                    throw new Error('Richiesta risultati turno non andata a buon fine');
-                  }
-                  let data = await response.text();
-                  testi += "Codice di test sottoposto al tentativo " + i.toString() + ":\n" + data + "\n\n";
-                } catch (error){
+            
+                try {
+                  let response = await $.ajax({
+                    url: "/tests/" + val.toString() + '/Test' + localStorage.getItem("classe"),
+                    method: 'GET',
+                    dataType: 'text',
+                  });
+            
+                  testi += "Codice di test sottoposto al tentativo " + i.toString() + ":\n" + response + "\n\n";
+                } catch (error) {
                   console.error('Error:', error);
                 }
-
               }
-              consoleArea.setValue(dastampare+testi);
+            
+              consoleArea.setValue(dastampare + testi);
               console.log(dastampare);
             }
+            
 
             fetchTurns(turno);
           }
@@ -879,6 +888,7 @@ public class TestClasse {
                       console.log(localStorage.getItem("turnId"));
                       turno++; // incremento il numero di turno giocati fino ad ora
                       //window.location.href = "/editor";
+                      
                     },
                     dataType: "json",
                     error: function (error) {
@@ -890,98 +900,89 @@ public class TestClasse {
                   });
 
                 }
-              },
-              error: function() {
-                // Gestisci l'errore, ad esempio mostra un messaggio di errore
-                document.getElementById('loading-editor').style.display = 'none';
-                console.log("Errore durante l'invio della partita.");
-              }
-            });
-            
-            //Da qui fino a FINE è stato aggiunto
-            //aggiungere cose per copertura evosuite
-            var classe = 'VolumeT8/FolderTreeEvo/' + localStorage.getItem("classe") + '/' + localStorage.getItem("classe") + 'SourceCode/' + localStorage.getItem("classe") + '.java';
+                var classe = 'VolumeT8/FolderTreeEvo/' + localStorage.getItem("classe") + '/' + localStorage.getItem("classe") + 'SourceCode/' + localStorage.getItem("classe") + '.java';
 
             var test = '/VolumeT8/FolderTreeEvo/Tests/' + localStorage.getItem("turnId");
 
             // Definisci il percorso dell'API
-            var apiBaseUrl = "http://"+dominio + ':3080/api/';
+            var apiBaseUrl = '/api/';
 
             // Concatena il percorso della classe al percorso dell'API
             var url = apiBaseUrl + classe + '+' + test + '+/app';
 
             const javaCode = editor.getValue(); // codice della classe di test
             document.getElementById('loading-result').style.display = 'block';
-            fetch(url, { 
-                  method: 'POST', 
-                  headers: { 'Content-Type': 'text/plain' },
-                  body: javaCode 
-              }) // resa funzione una POST
-              .then(function(response) {
-                if (!response.ok) {
-                  throw new Error('Errore nella richiesta HTTP: ' + response.status);
-                  console.log('Errore nella richiesta HTTP: ', response.status);
-                }
-
-                return response.blob();
-              })
-              .then(function (blob) {//aggiunta da noi
-                var reader = new FileReader();
-
-                reader.onload = function () {
-                  var csvContent = reader.result;
-
-                  console.log(csvContent);
-
-                  // Dividi il contenuto CSV in righe separate
-                  var lines = csvContent.split('\n');
-
-                  if (lines.length > 1) {
-                    // Dividi la seconda riga in elementi separati da virgole
-                    var secondRowElements = lines[1].split(',');
-                    var terzoRowElements = lines[2].split(',');
-                    var quartoRowElements = lines[3].split(',');
-                    var quintoRowElements = lines[4].split(',');
-                    var sestoRowElements = lines[5].split(',');
-                    var settimoRowElements = lines[6].split(',');
-                    var ottavoRowElements = lines[7].split(',');
-                    var nonoRowElements = lines[8].split(',');
-
-                    if (secondRowElements.length > 2) {
-                      // Estrai il terzo elemento (indice 2) della seconda riga
-                      var terzoElemento = parseInt(secondRowElements[2]*100);
-                      var terzoElemento1 = parseInt(terzoRowElements[2]*100);
-                      var terzoElemento2 = parseInt(quartoRowElements[2]*100);
-                      var terzoElemento3 = parseInt(quintoRowElements[2]*100);
-                      var terzoElemento4 = parseInt(sestoRowElements[2]*100);
-                      var terzoElemento5 = parseInt(settimoRowElements[2]*100);
-                      var terzoElemento6 = parseInt(ottavoRowElements[2]*100);
-                      var terzoElemento7 = parseInt(nonoRowElements[2]*100);
-                      document.getElementById('loading-result').style.display = 'none';
-                      console.log('Terzo elemento della seconda riga:', terzoElemento);
-                      consoleArea2.setValue(`Esito Risultati (percentuale di linee coperte)
-Il tuo punteggio EvoSuite: ${terzoElemento}% LOC
-Il tuo punteggio Jacoco: ${risp.score.toString()}% LOC
-Il punteggio del robot: ${risp.robotScore.toString()}% LOC
-Informazioni aggiuntive di copertura:
-Il tuo punteggio EvoSuite: ${terzoElemento1}% Branch
-Il tuo punteggio EvoSuite: ${terzoElemento2}% Exception
-Il tuo punteggio EvoSuite: ${terzoElemento3}% WeakMutation
-Il tuo punteggio EvoSuite: ${terzoElemento4}% Output
-Il tuo punteggio EvoSuite: ${terzoElemento5}% Method
-Il tuo punteggio EvoSuite: ${terzoElemento6}% MethodNoException
-Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
-                    }
+            $.ajax({
+              url: url,
+              type: 'POST',
+              data: javaCode,
+              timeout: 3000000,
+              processData: false,
+              contentType: false,
+              success: function (data, textStatus, xhr) {
+                           
+                var csvContent = data;
+            
+                console.log(csvContent);
+            
+                // Dividi il contenuto CSV in righe separate
+                var lines = csvContent.split('\n');
+            
+                if (lines.length > 1) {
+                  // Dividi la seconda riga in elementi separati da virgole
+                  var secondRowElements = lines[1].split(',');
+                  var terzoRowElements = lines[2].split(',');
+                  var quartoRowElements = lines[3].split(',');
+                  var quintoRowElements = lines[4].split(',');
+                  var sestoRowElements = lines[5].split(',');
+                  var settimoRowElements = lines[6].split(',');
+                  var ottavoRowElements = lines[7].split(',');
+                  var nonoRowElements = lines[8].split(',');
+            
+                  if (secondRowElements.length > 2) {
+                    // Estrai il terzo elemento (indice 2) della seconda riga
+                    var terzoElemento = parseInt(secondRowElements[2]*100);
+                    var terzoElemento1 = parseInt(terzoRowElements[2]*100);
+                    var terzoElemento2 = parseInt(quartoRowElements[2]*100);
+                    var terzoElemento3 = parseInt(quintoRowElements[2]*100);
+                    var terzoElemento4 = parseInt(sestoRowElements[2]*100);
+                    var terzoElemento5 = parseInt(settimoRowElements[2]*100);
+                    var terzoElemento6 = parseInt(ottavoRowElements[2]*100);
+                    var terzoElemento7 = parseInt(nonoRowElements[2]*100);
+            
+                    document.getElementById('loading-result').style.display = 'none';
+                    console.log('Terzo elemento della seconda riga:', terzoElemento);
+                    consoleArea2.setValue(`Esito Risultati (percentuale di linee coperte)
+                      Il tuo punteggio EvoSuite: ${terzoElemento}% LOC
+                      Il tuo punteggio Jacoco: ${risp.score.toString()}% LOC
+                      Il punteggio del robot: ${risp.robotScore.toString()}% LOC
+                      Informazioni aggiuntive di copertura:
+                      Il tuo punteggio EvoSuite: ${terzoElemento1}% Branch
+                      Il tuo punteggio EvoSuite: ${terzoElemento2}% Exception
+                      Il tuo punteggio EvoSuite: ${terzoElemento3}% WeakMutation
+                      Il tuo punteggio EvoSuite: ${terzoElemento4}% Output
+                      Il tuo punteggio EvoSuite: ${terzoElemento5}% Method
+                      Il tuo punteggio EvoSuite: ${terzoElemento6}% MethodNoException
+                      Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
                   }
-
-                };
-                document.getElementById('loading-editor').style.display = 'none';
-                reader.readAsText(blob);
-              })
-              .catch(function (error) {
+                }
+              },
+              error: function (xhr, textStatus, error) {
                 document.getElementById('loading-editor').style.display = 'none';
                 console.log('Si è verificato un errore:', error);
-              });
+              }
+            });
+            
+              },
+              error: function() {
+                document.getElementById('loading-editor').style.display = 'none';
+                alert("Si è verificato un errore. Assicurati prima che la compilazione vada a buon fine!");
+              }
+            });
+            
+            //Da qui fino a FINE è stato aggiunto
+            //aggiungere cose per copertura evosuite
+            
 
               //FINE
 
@@ -1086,37 +1087,34 @@ Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
           var test = '/VolumeT8/FolderTreeEvo/Tests/' + localStorage.getItem("turnId");
 
           // Definisci il percorso dell'API
-          var apiBaseUrl = "http://"+dominio + ':3080/api/';
+          var apiBaseUrl = '/api/';
 
           // Concatena il percorso della classe al percorso dell'API
           var url = apiBaseUrl + classe + '+' + test + '+/app';
 
           const javaCode = editor.getValue(); // codice della classe di test
 
-          fetch(url, { 
-                method: 'POST', 
-                headers: { 'Content-Type': 'text/plain' },
-                body: javaCode 
-            }) // resa funzione una POST
-            .then(function(response) {
-              if (!response.ok) {
-                throw new Error('Errore nella richiesta HTTP: ' + response.status);
-                console.log('Errore nella richiesta HTTP: ', response.status);
-              }
-
-              return response.blob();
-            })
-            .then(function (blob) {//aggiunta da noi
+          $.ajax({
+            url: url,
+            method: 'POST',
+            headers: {
+              'Content-Type': 'text/plain'
+            },
+            data: javaCode,
+            timeout: 300000,
+            processData: false,
+            success: function (data, textStatus, xhr) {
+                       
               var reader = new FileReader();
-
+          
               reader.onload = function () {
                 var csvContent = reader.result;
-
+          
                 console.log(csvContent);
-
+          
                 // Dividi il contenuto CSV in righe separate
                 var lines = csvContent.split('\n');
-
+          
                 if (lines.length > 1) {
                   // Dividi la seconda riga in elementi separati da virgole
                   var secondRowElements = lines[1].split(',');
@@ -1127,7 +1125,7 @@ Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
                   var settimoRowElements = lines[6].split(',');
                   var ottavoRowElements = lines[7].split(',');
                   var nonoRowElements = lines[8].split(',');
-
+          
                   if (secondRowElements.length > 2) {
                     // Estrai il terzo elemento (indice 2) della seconda riga
                     var terzoElemento = parseInt(secondRowElements[2]*100);
@@ -1138,28 +1136,29 @@ Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
                     var terzoElemento5 = parseInt(settimoRowElements[2]*100);
                     var terzoElemento6 = parseInt(ottavoRowElements[2]*100);
                     var terzoElemento7 = parseInt(nonoRowElements[2]*100);
-
+          
                     console.log('Terzo elemento della seconda riga:', terzoElemento);
                     consoleArea.setValue(`Esito Risultati (percentuale di linee coperte)
-Il tuo punteggio: ${terzoElemento}% LOC
-Informazioni aggiuntive di copertura:
-Il tuo punteggio EvoSuite: ${terzoElemento1}% Branch
-Il tuo punteggio EvoSuite: ${terzoElemento2}% Exception
-Il tuo punteggio EvoSuite: ${terzoElemento3}% WeakMutation
-Il tuo punteggio EvoSuite: ${terzoElemento4}% Output
-Il tuo punteggio EvoSuite: ${terzoElemento5}% Method
-Il tuo punteggio EvoSuite: ${terzoElemento6}% MethodNoException
-Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
+          Il tuo punteggio: ${terzoElemento}% LOC
+          Informazioni aggiuntive di copertura:
+          Il tuo punteggio EvoSuite: ${terzoElemento1}% Branch
+          Il tuo punteggio EvoSuite: ${terzoElemento2}% Exception
+          Il tuo punteggio EvoSuite: ${terzoElemento3}% WeakMutation
+          Il tuo punteggio EvoSuite: ${terzoElemento4}% Output
+          Il tuo punteggio EvoSuite: ${terzoElemento5}% Method
+          Il tuo punteggio EvoSuite: ${terzoElemento6}% MethodNoException
+          Il tuo punteggio EvoSuite: ${terzoElemento7}% CBranch`);
                   }
                 }
-
               };
-
-              reader.readAsText(blob);
-            })
-            .catch(function (error) {
+          
+              reader.readAsText(data);
+            },
+            error: function (xhr, textStatus, error) {
               console.log('Si è verificato un errore:', error);
-            });
+            }
+          });
+          
 
         }
         function highlightCodeCoverage(reportContent) {

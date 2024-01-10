@@ -26,6 +26,10 @@ REM Ciclo attraverso le directory specificate
    popd 
 ))
 
+REM RunScript.bat
+echo "Esecuzione script di inizializzazione"
+powershell -ExecutionPolicy Bypass -File inst.ps1
+
 REM Messaggio di completamento dell'installazione
 echo "Installazione terminata"
 pause

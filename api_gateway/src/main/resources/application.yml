@@ -38,7 +38,10 @@ zuul:
       sensitiveHeaders:
       path: /api/run/**
       url: http://t6-g12-app-1:80/run
-
+    loadingresult-service:
+      sensitiveHeaders:
+      path: /api/VolumeT8/FolderTreeEvo/**
+      url:  http://prototipo20-t8_generazione-1:3080/api/VolumeT8/FolderTreeEvo
 eureka:
   client:
     enabled: false

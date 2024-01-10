@@ -27,5 +27,25 @@ for dir in "${list[@]}"; do
    popd 
 done
 
+
+# Script.sh
+
+commands=$(cat <<'EOF'
+use manvsclass
+db.createCollection("ClassUT");
+db.createCollection("interaction");
+db.createCollection("Admin");
+db.createCollection("Operation");
+db.ClassUT.createIndex({ difficulty: 1 });
+db.interaction.createIndex({ name: "text", type: 1 });
+db.interaction.createIndex({ name: "text" });
+db.Admin.createIndex({ username: 1 });
+EOF
+)
+
+echo "$commands" | docker exec -i manvsclass-mongo_db-1 mongosh
+
+
 # Messaggio di completamento dell'installazione
 echo "Installazione terminata"
+read -p "Premi INVIO per continuare..."
