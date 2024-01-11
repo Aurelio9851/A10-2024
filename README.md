@@ -19,7 +19,9 @@ Tali script dovranno essere avviati unicamnete con Docker in esecuzione, altrime
 1) Creazione della rete "global-network" comune a tutti i container.
 2) Creazione del volume "VolumeT9" comune ai Task 1 e 9 e del volume "VolumeT8" comune ai Task 1 e 8.
 3) Creazione dei singoli container in Docker desktop.
-4) Creazione delle collezioni per il database MongoDB
+4) Esecuzione dei file di installazione nei container del task T8 e T7
+5) Avvio dei container
+6) Comandi di inizializzazione del db del task T1
 NOTA: il container relativo al Task 9 ("Progetto-SAD-G19-master") si sospenderà autonomamente dopo l'avvio. Esso viene utilizzato solo per "popolare" il volume "VolumeT9" condiviso con il Task 1.
 
 L'intera applicazione è adesso pienamente configurata e raggiungibile sulla porta :80. Per una guida all'installazione e all'utilizzo più completa consultare la documentazione al capitolo 8.
@@ -28,6 +30,13 @@ L'intera applicazione è adesso pienamente configurata e raggiungibile sulla por
 
 # A: Installazione NGROK
 ## PASSO A.1 
+1) Registrazione presso il sito: https://ngrok.com/
+2) Accesso alla Dashboard: https://dashboard.ngrok.com/get-started
+3) Scelta dell'agente (si consiglia Docker)
+4) Si esegue il comando di installazione sul prompt dei comandi mentre Docker è aperto.
+   '''
+   docker run --net=host -it -e NGROK_AUTHTOKEN=TOKEN_PERSONALE ngrok/ngrok:latest http 80
+   '''
 # B: Esposizione localhost tramite Pinggy
 ## PASSO B.1 
 Inserire il comando
