@@ -26,20 +26,28 @@ NOTA: il container relativo al Task 9 ("Progetto-SAD-G19-master") si sospenderà
 
 L'intera applicazione è adesso pienamente configurata e raggiungibile sulla porta :80. Per una guida all'installazione e all'utilizzo più completa consultare la documentazione al capitolo 8.
 # Passi opzionali per esporre l'applicazione su un indirizzo pubblico
-# NB: Ogni lettera rappresenta una soluzione diversa
+__NB: Ogni lettera rappresenta una soluzione diversa__
 
 # A: Installazione NGROK
-## PASSO A.1 
-1) Registrazione presso il sito: https://ngrok.com/
-2) Accesso alla Dashboard: https://dashboard.ngrok.com/get-started
-3) Scelta dell'agente (si consiglia Docker)
-4) Si esegue il comando di installazione sul prompt dei comandi mentre Docker è aperto.
-   '''
-   docker run --net=host -it -e NGROK_AUTHTOKEN=TOKEN_PERSONALE ngrok/ngrok:latest http 80
-   '''
+ __PASSO A.1__: 
+Registrazione presso il sito: https://ngrok.com/
+
+ __PASSO A.2__:
+Accesso alla Dashboard: https://dashboard.ngrok.com/get-started
+
+ __PASSO A.3__:
+Scelta dell'agente (si consiglia Docker)
+
+ __PASSO A.4__:
+Inserire il comando sostituendo il __*token*__ fornito:
+
+    docker run --net=host -it -e NGROK_AUTHTOKEN=TOKEN_PERSONALE ngrok/ngrok:latest http 80
+
 # B: Esposizione localhost tramite Pinggy
-## PASSO B.1 
-Inserire il comando
+ __PASSO B.1__:
+Mentre Docker è in esecuzione digitare il seguente comando sul prompt dei comandi:
+
+    ssh -p 443 -R0:localhost:80 -L4300:localhost:4300 a.pinggy.io
 
 # C: Installazione Server Esterno 
 ## PASSO C.1 
