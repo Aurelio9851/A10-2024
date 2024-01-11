@@ -29,6 +29,7 @@ L'intera applicazione è adesso pienamente configurata e raggiungibile sulla por
 __NB: Ogni lettera rappresenta una soluzione diversa__
 
 # A: Installazione NGROK
+Nel caso sia stato già installato basterà avviare il container e collegarsi all'indirizzo fornito in precedenza
  __PASSO A.1__: 
 Registrazione presso il sito: https://ngrok.com/
 
@@ -43,12 +44,17 @@ Inserire il comando sostituendo il __*token*__ fornito:
 
     docker run --net=host -it -e NGROK_AUTHTOKEN=TOKEN_PERSONALE ngrok/ngrok:latest http 80
 
+A questo punto si avrà l'indirizzo pubblico come risposta nel prompt dei comandi 
+
 # B: Esposizione localhost tramite Pinggy
  __PASSO B.1__:
 Mentre Docker è in esecuzione digitare il seguente comando sul prompt dei comandi:
 
     ssh -p 443 -R0:localhost:80 -L4300:localhost:4300 a.pinggy.io
 
+ __PASSO B.2__: 
+Per la richiesta della password, dare una stringa vuota.
+Infine compariranno a schermo l'indirizzo pubblico.
 # C: Installazione Server Esterno 
 ## PASSO C.1 
 
