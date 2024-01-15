@@ -103,7 +103,7 @@ func (gc *Controller) List(w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	pageSize, err := api.FromUrlQuery[KeyType](r, "pageSize", 1000) //numero risulati ritornati
+	pageSize, err := api.FromUrlQuery[KeyType](r, "pageSize", 1000)
 
 	if err != nil {
 		return err

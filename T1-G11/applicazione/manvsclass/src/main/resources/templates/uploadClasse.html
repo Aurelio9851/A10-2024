@@ -105,6 +105,7 @@ a:hover {
     text-decoration:none;
 }
 
+
 /*caricamento*/
 #loadingOverlay {
   display: none;
@@ -196,19 +197,18 @@ a:hover {
   </div>
 
   <div class="form-group mt-3">
-    <label class="mr-2">Upload your file (.java) :</label>
+    <label class="mr-2">Upload your class (.java) :</label>
     <input type="file" name="file" id="fileInput">
   </div>
-
-  <div class="col-12">
-    <button type="button" onclick="uploadFile()" class="btn btn-success">Upload</button>
+  <div class="form-group mt-3">
+    <button type="button" onclick="uploadFile()" class="btn btn-success">Upload class</button>
   </div>
+
 </form>
 
   </div>
 
 </div>
-
 
 
 <!-- Schermata di caricamento -->
@@ -217,6 +217,7 @@ a:hover {
     <p>Caricamento in corso...</p>
   </div>
 </div>
+
 
 
 
@@ -232,6 +233,7 @@ a:hover {
 
 
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
 </script>
@@ -240,11 +242,15 @@ a:hover {
 
 
 <script>
+//Si aggancia al form tramite ID
 const form = document.getElementById('formId');
 
 
+
+//Funzione per l'upload della classe e generazione dei test
 function uploadFile(event) {
   
+  //Creazione delle costanti che rappresentano i dati input al form
   const name = document.getElementById('className').value;
   const date = document.getElementById('date').value;
   const difficulty = document.getElementById('difficulty').value;
@@ -256,9 +262,11 @@ function uploadFile(event) {
     document.getElementById('category3').value
   ];
 
+  //Costante che rappresenta il file .java in input
   const fileInput = document.getElementById('fileInput');
   const file = fileInput.files[0];
 
+  //Costante che rappresenta l'insieme dei dati del form e il file in input
   const formData = new FormData();
   formData.append('file', file);
   formData.append('model', JSON.stringify({
@@ -270,34 +278,35 @@ function uploadFile(event) {
     category: category
   }));
 
-  // Mostra la schermata di caricamento prima della richiesta POST
-document.getElementById('loadingOverlay').style.display = 'block';
+  //Chiamata HTTP alla funzione uploadFile in HomeController con metodo POST e dati del form come body 
 
-fetch('/uploadFile', {
-  method: 'POST',
-  body: formData
-})
-  .then(response => response.json())
-  .then(data => {
+
+  // Mostra la schermata di caricamento prima della richiesta POST
+  document.getElementById('loadingOverlay').style.display = 'block';
+
+$.ajax({
+  url: '/uploadFile',
+  type: 'POST',
+  data: formData,
+  processData: false,
+  contentType: false,
+  success: function(data) {
     console.log('Success:', data);
     // Nascondi la schermata di caricamento dopo il caricamento
-    document.getElementById('loadingOverlay').style.display = 'none';
-    window.location.href = "/class";
+    $('#loadingOverlay').hide();
+    window.location.href = '/class';
     // Aggiungi qui il codice per gestire la risposta dal server
-  })
-  .catch((error) => {
+  },
+  error: function(error) {
     console.error('Error:', error);
     // Nascondi la schermata di caricamento in caso di errore
-    document.getElementById('loadingOverlay').style.display = 'none';
+    $('#loadingOverlay').hide();
     // Aggiungi qui il codice per gestire gli errori
-  });
+  }
+});
 
-  
 }
 </script>
- 
-
-
 
 
 </body>

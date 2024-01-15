@@ -333,11 +333,6 @@ public class Controller {
     //     return ID;
     // }
 
-    @GetMapping("/students_list")
-    public List<User> getAllStudents() {
-        return userRepository.findAll();
-    }
-
     /* GET PER LE VIEW */
 
     public boolean isJwtValid(String jwt) {
@@ -373,6 +368,11 @@ public class Controller {
         if(isJwtValid(jwt)) return new ModelAndView("redirect:/main"); 
 
         return new ModelAndView("login");
+    }
+
+    @GetMapping("/students_list")
+    public List<User> getAllStudents() {
+        return userRepository.findAll();
     }
 
     

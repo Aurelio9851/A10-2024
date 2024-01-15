@@ -42,6 +42,7 @@ zuul:
       sensitiveHeaders:
       path: /api/VolumeT8/FolderTreeEvo/**
       url:  http://prototipo20-t8_generazione-1:3080/api/VolumeT8/FolderTreeEvo
+
 eureka:
   client:
     enabled: false
