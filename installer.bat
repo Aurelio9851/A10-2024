@@ -28,7 +28,7 @@ REM Ciclo attraverso le directory specificate
 
 REM RunScript.bat
 echo "Esecuzione script di inizializzazione"
-powershell -ExecutionPolicy Bypass -File inst.ps1
+powershell -ExecutionPolicy Bypass -File RunCommands.ps1
 
 REM Messaggio di completamento dell'installazione
 echo "Installazione terminata"
