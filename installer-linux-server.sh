@@ -38,7 +38,7 @@ db.createCollection("Admin");
 db.createCollection("Operation");
 db.ClassUT.createIndex({ difficulty: 1 });
 db.interaction.createIndex({ name: "text", type: 1 });
-db.interaction.createIndex({ name: "text" });
+db.Operation.createIndex({ name: "text" });
 db.Admin.createIndex({ username: 1 });
 EOF
 )
