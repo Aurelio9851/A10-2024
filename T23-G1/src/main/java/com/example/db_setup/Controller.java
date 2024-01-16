@@ -127,7 +127,7 @@ public class Controller {
         Matcher m = p.matcher(password);
 
         if ((password.length() >16) || (password.length() < 8) || !(m.matches())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password not valid");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password not valid, maiuscola, minuscola e numero, con lunghezza tra 8 e 16");
         }
 
         if (password.equals(check_password)) {
