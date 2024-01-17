@@ -1,4 +1,4 @@
-# Task T10 Requisiti R5 e R12 - Gruppo A10
+# Task T10 - Gruppo A10
 Componenti:
 - Vincenzo D'Angelo - M63/1595
 - Giorgio Di Costanzo - M63/1579
