@@ -7,13 +7,13 @@ docker stop $(docker ps -aq)
 docker rm $(docker ps -aq)
 
 # Rimuovere tutti i volumi
-docker volume prune -f
+docker volume prune -af
 
 # Rimuovere tutte le immagini
-docker rmi -f $(docker images -aq)
+docker rmi -af $(docker images -aq)
 
 # Rimuovere tutte le reti
-docker network prune -f
+docker network prune -af
 
 # Rimuovere tutti i container, volumi, immagini e reti orfani
 docker system prune -af
