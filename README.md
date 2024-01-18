@@ -16,7 +16,8 @@ b) digitare wsl --install e premere invio
 c) digitare wsl --update e premere invio
 d) riavviare la macchina
 </pre>
-All'avvio di Docker Desktop nella sezione Settings -> General controllare che sia spuntata l'opzione "Use the WSL 2 based engine"
+1) Procedere all'installazione di Docker Desktop: https://www.docker.com/products/docker-desktop/
+2) All'avvio di Docker Desktop nella sezione Settings -> General controllare che sia spuntata l'opzione "Use the WSL 2 based engine"
 
 ## PASSO 1B
 Nel caso non sia la prima installazione, per la disinstallazione utilizzare "uninstaller.bat" mentre si ha in esecuzione Docker, in questo modo si elimina qualunque file presente su Docker.
