@@ -30,7 +30,8 @@ __NB: Ogni lettera rappresenta una soluzione diversa__
 
 # A: Installazione NGROK
 Nel caso sia stato già installato basterà avviare il container e collegarsi all'indirizzo fornito in precedenza
- __PASSO A.1__: 
+
+ __PASSO A.1__:
 Registrazione presso il sito: https://ngrok.com/
 
  __PASSO A.2__:
