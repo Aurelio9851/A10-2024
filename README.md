@@ -7,12 +7,29 @@ Componenti:
 # GUIDA ALL'INSTALLAZIONE
 
 ## PASSO 1
-Scaricare Docker Desktop per il proprio sistema operativo.
+NOTA: Questa procedura è specifica per sistemi Windows, per sistemi MacOs e Linux, si rimanda alla documentazione ufficiale per l'installazione di docker desktop( si allegano i link
+MAC: https://docs.docker.com/desktop/install/mac-install/
+Linux: https://docs.docker.com/desktop/install/linux-install/ )
+Installazione Docker Desktop: se già installato correttamente sulla macchina passare al Passo 2
+NOTA: sebbene il Windows Subsystem for Linux wsl2, una funzionalità che consente di eseguire un ambiente Linux all'interno del sistema operativo Windows garantendo la compatibilità tra Docker Desktop e Windows, normalmente venga installato e aggiornato durante l'installazione di Docker Desktop, vi sono casi in cui questo step non venga effettuato correttamente in maniera automatica (all'apertura di Docker è presente un messaggio di errore "WSL Error"), bisogna quindi installare manualmente wsl tramite gli step preliminari 0:
 
-## PASSO 1B
-Nel caso non sia la prima installazione, per la disinstallazione utilizzare "uninstaller.bat" mentre si ha in esecuzione Docker, in questo modo si elimina qualunque file presente su Docker.
+0a) avviare il prompt dei comandi
+0b) digitare wsl --install e premere invio
+0c) digitare wsl --update e premere invio
+0d) riavviare la macchina
+recarsi alla pagina web ufficiale: https://www.docker.com/products/docker-desktop/
+cliccare su Download per il proprio sistema operativo (ad es. Download for Windows) per scaricare il setup eseguibile
+lanciare l'eseguibile e procedere all'installazione, è possibile completare l'installazione con le impostazione di default, anche senza effettuare la registrazione di un account e senza effettuare il login
+riavviare la macchina come richiesto al termine dell'installazione
+all'avvio di Docker Desktop nella sezione Settings -> General controllare che sia spuntata l'opzione "Use the WSL 2 based engine"
 
 ## PASSO 2
+Scaricare Docker Desktop per il proprio sistema operativo.
+
+## PASSO 2B
+Nel caso non sia la prima installazione, per la disinstallazione utilizzare "uninstaller.bat" mentre si ha in esecuzione Docker, in questo modo si elimina qualunque file presente su Docker.
+
+## PASSO 3
 Avviare lo script "installer.bat" se si sta usando una distribuzione Windows oppure "installermac.sh" nel caso si utilizzi macOS o una distro di Linux.
 Per MacOS - eseguire nella cartella dove è presente il file ”installermac.sh” il comando "chmod +x installermac.sh" per renderlo eseguibile, e poi "./installermac.sh" per eseguirlo.
 Tali script dovranno essere avviati unicamnete con Docker in esecuzione, altrimenti l'installazione non partirà. Saranno effettuate le seguenti operazioni:
