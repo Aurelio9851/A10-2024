@@ -97,7 +97,7 @@ Memoria: 40GB
 Scaricare puTTY e collegarsi tramite protocollo SSH sul IP fornito dal Server.
 
 ## PASSO C.4 
-Dopo essersi trovati nel Prompt, eseguire i seguenti comandi per clonare la cartalla di github, installare docker e l'applicazione web su docker: 
+All'interno del terminale di puTTY, eseguire i seguenti comandi per clonare la cartella di github, installare docker e l'applicazione web su docker: 
 
     sudo apt update
     sudo apt install git
