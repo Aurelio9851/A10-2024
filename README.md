@@ -35,7 +35,7 @@ Tali script dovranno essere avviati unicamnete con Docker in esecuzione, altrime
    
 NOTA: il container relativo al Task 9 ("Progetto-SAD-G19-master") si sospenderà autonomamente dopo l'avvio. Esso viene utilizzato solo per "popolare" il volume "VolumeT9" condiviso con il Task 1.
 
-L'intera applicazione è adesso pienamente configurata e raggiungibile sulla porta :80. Per una guida all'installazione e all'utilizzo più completa consultare la documentazione al capitolo 8.
+L'intera applicazione è adesso pienamente configurata e raggiungibile sulla porta :80. Per una guida all'installazione e all'utilizzo più completa consultare la documentazione al capitolo 7.
 # Passi opzionali per esporre l'applicazione su un indirizzo pubblico
 __NB: Ogni lettera rappresenta una soluzione diversa__
 
