@@ -42,7 +42,7 @@ Scelta dell'agente (si consiglia Docker)
  __PASSO A.4__:
 Inserire il comando sostituendo il __*token*__ fornito:
 
-    docker run --net=host -it -e NGROK_AUTHTOKEN=2ZGkTSlGJT6AWg0HorqrlzYWrKR_3qNW6tUMFtRwRFAVTQFgr ngrok/ngrok:latest http --domain=horse-causal-basically.ngrok-free.app 80
+    docker run --net=host -it -e NGROK_AUTHTOKEN=TOKEN ngrok/ngrok:latest http --domain=DOMINIO 80
     
 A questo punto si avrà l'indirizzo pubblico come risposta nel prompt dei comandi 
 
