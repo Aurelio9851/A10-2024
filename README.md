@@ -1,4 +1,4 @@
-# Task T10 - Gruppo A10
+# Gruppo A10-2024
 Componenti:
 - Vincenzo D'Angelo - M63/1595
 - Giorgio Di Costanzo - M63/1579
@@ -42,7 +42,7 @@ Scelta dell'agente (si consiglia Docker)
  __PASSO A.4__:
 Inserire il comando sostituendo il __*token*__ fornito:
 
-    docker run --net=host -it -e NGROK_AUTHTOKEN=TOKEN ngrok/ngrok:latest http --domain=DOMINIO 80
+    docker run --net=host -it -e NGROK_AUTHTOKEN=TOKEN ngrok/ngrok:latest http --domain= DOMINIO 80
     
 A questo punto si avrà l'indirizzo pubblico come risposta nel prompt dei comandi 
 
@@ -61,7 +61,7 @@ Infine compariranno a schermo l'indirizzo pubblico.
 # VIDEO DIMOSTRAZIONE
 ## Admin
 
-
+https://github.com/Testing-Game-SAD-2023/A10-2024/blob/main/Video/Admin_carica_classe.mp4
 
 //Link GitHub
 
