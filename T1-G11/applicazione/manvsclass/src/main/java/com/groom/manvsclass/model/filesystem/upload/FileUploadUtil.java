@@ -61,7 +61,7 @@ public class FileUploadUtil {
 	}
 
 	public static void deleteDirectory(File directory) throws IOException {
-        File[] files = directory.listFiles();
+		File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
@@ -75,7 +75,9 @@ public class FileUploadUtil {
         }
         else {
         	directory.delete();
+			
         }
+		
         if (!directory.delete()) {
             throw new IOException("Impossibile eliminare la cartella: " + directory.getAbsolutePath());
         }

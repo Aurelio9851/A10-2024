@@ -397,11 +397,15 @@ public class HomeController {
 	@ResponseBody
 	public ResponseEntity<String> eliminaFile(@PathVariable String fileName) {
 	  String folderPath = "Files-Upload/"+ fileName; 
+	  File directoryRandoop = new File("/VolumeT9/app/FolderTree/" + fileName);
+	File directoryEvo = new File("/VolumeT8/FolderTreeEvo/" +  fileName);
 	  
 	        File folderToDelete = new File(folderPath);
 	        if (folderToDelete.exists() && folderToDelete.isDirectory()) {
 	        	try {
 	        		FileUploadUtil.deleteDirectory(folderToDelete);
+	        		FileUploadUtil.deleteDirectory(directoryRandoop);
+	        		FileUploadUtil.deleteDirectory(directoryEvo);
 	                return new ResponseEntity<>("Cartella eliminata con successo.", HttpStatus.OK);
 	            } catch (IOException e) {
 	                return new ResponseEntity<>("Impossibile eliminare la cartella.", HttpStatus.INTERNAL_SERVER_ERROR);
