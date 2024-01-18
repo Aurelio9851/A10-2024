@@ -50,6 +50,8 @@ A questo punto si avrà l'indirizzo pubblico come risposta nel prompt dei comand
 ## Video installazione 
 
 
+https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/0292d839-321f-4172-a044-25648d291753
+
 
 # B: Esposizione localhost tramite Pinggy
  __PASSO B.1__:
@@ -69,21 +71,60 @@ https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/a2e439d6-60c3
 
 # C: Installazione Server Esterno 
 
-## Video installazione 
-
-
-
-https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/d3e8df69-6677-421c-a8f7-738cb886e5b5
 
 
 ## PASSO C.1 
+Il primo passo è quello di registrarsi presso il sito: https://www.kamatera.com/
+
+## PASSO C.2
+Creare e configurare il server con sistema linux, impostando le specifiche tecniche, si consigliano: 
+CPU:2 
+RAM: 8GB
+Memoria: 40GB
+
+## PASSO C.3
+Scaricare puTTY e collegarsi tramite protocollo SSH sul IP fornito dal Server.
+
+## PASSO C.4 
+Dopo essersi trovati nel Prompt, eseguire i seguenti comandi per clonare la cartalla di github, installare docker e l'applicazione web su docker: 
+
+    sudo apt update
+    sudo apt install git
+    git clone https://github.com/Testing-Game-SAD-2023/A10-2024
+    cd ./A10-2024
+    chmod +x installer_docker.sh
+    chmod +x installer-linux-server.sh
+    chmod +x uninstaller.sh
+    /installer_docker.sh
+    /installer-linux-server.sh
+
+## PASSO C.5
+Installazione a questo punto è completata, da linea di comando è possibile vedere se tutti i container sono in stato di RUN con il seguente comando: 
+
+    docker container ls -a
+    
+E farli ripartire tutti con:
+
+    docker restart $(docker ps -q -a)
+
+## PASSO C.6
+Accedendo al indirizzo IP tramite browser sarà possibile utilizzare l'applicazione web tramite indirizzo pubblico
+
+## Video installazione 
+
+https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/b96c6831-d134-44af-aae7-5cb78e503090
+
+
+
+
+
 
 # VIDEO DIMOSTRAZIONE
 ## Admin
 
 
 
-https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/ee9d911b-c4c2-45fe-be63-39cb01ca8aa8
+https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/955ead78-04ed-4763-8777-4ebb13bfdd1a
 
 
 
@@ -91,6 +132,6 @@ https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/ee9d911b-c4c2
 
 
 
-https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/aa938a96-30eb-4b9c-b0a3-0c08d5157b66
+https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/d92328cd-1863-48f4-abe1-a94c04963cf7
 
 
