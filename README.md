@@ -46,6 +46,10 @@ Inserire il comando sostituendo il __*token*__ fornito:
     
 A questo punto si avrà l'indirizzo pubblico come risposta nel prompt dei comandi 
 
+## Video installazione 
+
+
+
 # B: Esposizione localhost tramite Pinggy
  __PASSO B.1__:
 Mentre Docker è in esecuzione digitare il seguente comando sul prompt dei comandi:
@@ -55,15 +59,30 @@ Mentre Docker è in esecuzione digitare il seguente comando sul prompt dei coman
  __PASSO B.2__: 
 Per la richiesta della password, dare una stringa vuota.
 Infine compariranno a schermo l'indirizzo pubblico.
+
+## Video installazione 
+
+https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/a2e439d6-60c3-444f-b099-778f94e71121
+
+
+
 # C: Installazione Server Esterno 
+
+## Video installazione 
+
+
+
+https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/d3e8df69-6677-421c-a8f7-738cb886e5b5
+
+
 ## PASSO C.1 
 
 # VIDEO DIMOSTRAZIONE
 ## Admin
 
-https://github.com/Testing-Game-SAD-2023/A10-2024/blob/main/Video/Admin_carica_classe.mp4
 
-//Link GitHub
+
+https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/ee9d911b-c4c2-45fe-be63-39cb01ca8aa8
 
 
 
@@ -71,4 +90,6 @@ https://github.com/Testing-Game-SAD-2023/A10-2024/blob/main/Video/Admin_carica_c
 
 
 
-//Link GitHub
+https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/aa938a96-30eb-4b9c-b0a3-0c08d5157b66
+
+
