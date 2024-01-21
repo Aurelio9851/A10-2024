@@ -106,8 +106,8 @@ All'interno del terminale di puTTY, eseguire i seguenti comandi per clonare la c
     chmod +x installer_docker.sh
     chmod +x installer-linux-server.sh
     chmod +x uninstaller.sh
-    /installer_docker.sh
-    /installer-linux-server.sh
+    ./installer_docker.sh
+    ./installer-linux-server.sh
 
 ## PASSO C.5
 L' installazione a questo punto è completata, da linea di comando è possibile vedere se tutti i container sono in stato di RUN con il seguente comando: 
