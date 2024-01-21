@@ -110,7 +110,7 @@ All'interno del terminale di puTTY, eseguire i seguenti comandi per clonare la c
     /installer-linux-server.sh
 
 ## PASSO C.5
-Installazione a questo punto è completata, da linea di comando è possibile vedere se tutti i container sono in stato di RUN con il seguente comando: 
+L' installazione a questo punto è completata, da linea di comando è possibile vedere se tutti i container sono in stato di RUN con il seguente comando: 
 
     docker container ls -a
     
@@ -146,3 +146,9 @@ https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/955ead78-04ed
 https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/d92328cd-1863-48f4-abe1-a94c04963cf7
 
 
+
+## Mobile Device
+
+
+
+https://github.com/Testing-Game-SAD-2023/A10-2024/assets/24376231/18f1cbd2-3671-4012-9911-584ca4215690
