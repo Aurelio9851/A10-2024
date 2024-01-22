@@ -49,14 +49,16 @@ Registrazione presso il sito: https://ngrok.com/
 Accesso alla Dashboard: https://dashboard.ngrok.com/get-started
 
  __PASSO A.3__:
-Scelta dell'agente (si consiglia Docker)
+Scelta dell'agente (si consiglia Docker).
 
  __PASSO A.4__:
-Inserire il comando sostituendo il __*token*__ fornito:
+Inserire il comando sostituendo il __*token*__ e il __*dominio statico*__ fornito:
 
     docker run --net=host -it -e NGROK_AUTHTOKEN=TOKEN ngrok/ngrok:latest http --domain= DOMINIO 80
     
-A questo punto si avrà l'indirizzo pubblico come risposta nel prompt dei comandi 
+A questo punto si avrà l'indirizzo pubblico come risposta nel prompt dei comandi.
+
+*__NB__*: il comando può essere copiato direttamente dalla dashboard di Ngrok, si consiglia di utilizzare il dominio di tipo statico
 
 ## Video installazione 
 
