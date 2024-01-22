@@ -31,7 +31,7 @@ Tali script dovranno essere avviati unicamnete con Docker in esecuzione, altrime
 3) Creazione dei singoli container in Docker desktop.
 4) Esecuzione dei file di installazione nei container del task T8 e T7
 5) Avvio dei container
-6) Comandi di inizializzazione del db del task T1
+6) Comandi di inizializzazione del database del task T1
    
 NOTA: il container relativo al Task 9 ("Progetto-SAD-G19-master") si sospenderà autonomamente dopo l'avvio. Esso viene utilizzato solo per "popolare" il volume "VolumeT9" condiviso con il Task 1.
 
