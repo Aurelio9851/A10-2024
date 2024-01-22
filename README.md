@@ -65,6 +65,11 @@ https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/0292d839-321f
 
 
 # B: Esposizione localhost tramite Pinggy
+
+__ATTENZIONE__: 
+Si consiglia di non diffondere il link generato da Pinggy poiché all'interno è presente il proprio indirizzo pubblic. 
+UTILE SOLAMENTE IN CASO DI TEST IN AMBIENTE CONTROLLATO!
+
  __PASSO B.1__:
 Mentre Docker è in esecuzione digitare il seguente comando sul prompt dei comandi:
 
@@ -74,9 +79,6 @@ Mentre Docker è in esecuzione digitare il seguente comando sul prompt dei coman
 Per la richiesta della password, dare una stringa vuota.
 Infine compariranno a schermo l'indirizzo pubblico.
 
-## Video installazione 
-
-https://github.com/Testing-Game-SAD-2023/A10-2024/assets/148564450/a2e439d6-60c3-444f-b099-778f94e71121
 
 
 
